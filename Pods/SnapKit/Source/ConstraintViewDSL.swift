@@ -32,23 +32,23 @@ public struct ConstraintViewDSL: ConstraintAttributesDSL {
     
     @discardableResult
     public func prepareConstraints(_ closure: (_ make: ConstraintMaker) -> Void) -> [Constraint] {
-        return ConstraintMaker.prepareConstraints(view: self.view, closure: closure)
+        return ConstraintMaker.prepareConstraints(self.view, closure: closure)
     }
     
     public func makeConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
-        ConstraintMaker.makeConstraints(view: self.view, closure: closure)
+        ConstraintMaker.makeConstraints(self.view, closure: closure)
     }
     
     public func remakeConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
-        ConstraintMaker.remakeConstraints(view: self.view, closure: closure)
+        ConstraintMaker.remakeConstraints(self.view, closure: closure)
     }
     
     public func updateConstraints(_ closure: (_ make: ConstraintMaker) -> Void) {
-        ConstraintMaker.updateConstraints(view: self.view, closure: closure)
+        ConstraintMaker.updateConstraints(self.view, closure: closure)
     }
     
     public func removeConstraints() {
-        ConstraintMaker.removeConstraints(view: self.view)
+        ConstraintMaker.removeConstraints(self.view)
     }
     
     
@@ -104,21 +104,21 @@ public struct ConstraintViewDSL: ConstraintAttributesDSL {
         return self.constraintsHashTable.allObjects
     }
     
-    internal func add(constraints: [Constraint]) {
+    internal func add(_ constraints: [Constraint]) {
         let hashTable = self.constraintsHashTable
         for constraint in constraints {
             hashTable.add(constraint)
         }
     }
     
-    internal func remove(constraints: [Constraint]) {
+    internal func remove(_ constraints: [Constraint]) {
         let hashTable = self.constraintsHashTable
         for constraint in constraints {
             hashTable.remove(constraint)
         }
     }
     
-    private var constraintsHashTable: NSHashTable<Constraint> {
+    fileprivate var constraintsHashTable: NSHashTable<Constraint> {
         let constraints: NSHashTable<Constraint>
         
         if let existing = objc_getAssociatedObject(self.view, &constraintsKey) as? NSHashTable<Constraint> {

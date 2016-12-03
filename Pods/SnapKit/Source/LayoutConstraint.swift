@@ -28,9 +28,9 @@
 #endif
 
 
-public class LayoutConstraint: NSLayoutConstraint {
+open class LayoutConstraint: NSLayoutConstraint {
     
-    public var label: String? {
+    open var label: String? {
         get {
             return self.identifier
         }
